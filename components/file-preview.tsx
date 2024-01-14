@@ -10,7 +10,7 @@ const FilePreview = ({
    removeFile: () => void;
 }) => {
    return (
-      <div className="flex items-center justify-between max-w-[400px] w-full mt-5 rounded-md p-2 border border-blue-200">
+      <div className="flex items-center justify-between w-full mt-5 rounded-md p-2 border border-blue-200">
          <div className="flex irems-center gap-4 pl-2">
             <Image
                src="/file-icon.png"

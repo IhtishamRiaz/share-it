@@ -19,7 +19,7 @@ export default function RootLayout({
    return (
       <ClerkProvider>
          <html lang="en">
-            <body className={cn("min-h-svh bg-slate-50", inter.className)}>
+            <body className={cn("min-h-svh bg-slate-100", inter.className)}>
                {children}
             </body>
          </html>

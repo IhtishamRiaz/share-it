@@ -1,10 +1,14 @@
-"use client";
-
 import React, { useState } from "react";
 import AlertMsg from "./alert-msg";
 import FilePreview from "./file-preview";
+import ProgressBar from "./progress-bar";
 
-const UploadForm = () => {
+interface UploadFormProps {
+   progress: number;
+   uploadFile: (file: File) => void;
+}
+
+const UploadForm = ({ progress, uploadFile }: UploadFormProps) => {
    const [file, setFile] = useState<File>();
    const [errorMsg, setErrorMsg] = useState<string>();
 
@@ -63,12 +67,19 @@ const UploadForm = () => {
             <FilePreview file={file} removeFile={() => setFile(undefined)} />
          )}
 
-         <button
-            disabled={!file}
-            className="text-white bg-primary rounded-full mt-5 p-2 w-32 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all disabled:bg-slate-400 disabled:active:scale-100"
-         >
-            Upload
-         </button>
+         {progress > 0 ? (
+            <ProgressBar progress={progress} />
+         ) : (
+            <button
+               disabled={!file}
+               onClick={() => {
+                  if (file) uploadFile(file);
+               }}
+               className="text-white bg-primary rounded-full mt-5 p-2 w-32 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all disabled:bg-slate-400 disabled:active:scale-100"
+            >
+               Upload
+            </button>
+         )}
       </>
    );
 };
