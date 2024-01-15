@@ -9,3 +9,12 @@ export type fileInfo = {
    userEmail: string;
    userName: string;
 };
+
+export type EmailProps = {
+   emailToSend: string;
+   shortUrl: string;
+   userName: string;
+   fileName: string;
+   fileType: string;
+   fileSize: number;
+};

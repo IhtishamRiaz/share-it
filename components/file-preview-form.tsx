@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { LuCopy } from "react-icons/lu";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { cn } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
+import sendEmail from "@/lib/emailApi";
 
 type Props = {
    fileInfo: fileInfo;
@@ -14,6 +16,8 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
    const [showPassword, setShowPassword] = useState(false);
    const [isPasswordEnabled, setIsPasswordEnabled] = useState(false);
    const [email, setEmail] = useState("");
+
+   const { user } = useUser();
 
    const copyLink = () => {
       navigator.clipboard.writeText(fileInfo?.shortUrl);
@@ -33,6 +37,19 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
       setPassword(fileInfo?.password);
       setIsPasswordEnabled(fileInfo?.password ? true : false);
    }, [fileInfo?.password]);
+
+   const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+
+      sendEmail({
+         emailToSend: email,
+         shortUrl: fileInfo?.shortUrl,
+         userName: user?.primaryEmailAddress?.emailAddress || "",
+         fileName: fileInfo?.fileName,
+         fileType: fileInfo?.fileType,
+         fileSize: fileInfo?.fileSize,
+      });
+   };
 
    return (
       <div className="border shadow-sm rounded-md basis-1/2 bg-white pt-3 pb-6 px-4">
@@ -90,16 +107,22 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
 
          <div className="mt-8 space-y-2">
             <p className="text-gray-400">Send File on Email</p>
-            <input
-               type="email"
-               value={email}
-               placeholder="Enter Email"
-               onChange={(e) => setEmail(e.target.value)}
-               className="border rounded-md flex items-center justify-between h-10 px-2 outline-none w-full"
-            />
-            <button className="text-white bg-primary w-full rounded-md py-2 px-4 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all">
-               Send Email
-            </button>
+            <form onSubmit={handleSubmit} className="space-y-3">
+               <input
+                  type="email"
+                  required
+                  placeholder="Enter Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="border rounded-md flex items-center justify-between h-10 px-2 outline-none w-full"
+               />
+               <button
+                  type="submit"
+                  className="text-white bg-primary w-full rounded-md py-2 px-4 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all"
+               >
+                  Send Email
+               </button>
+            </form>
          </div>
       </div>
    );

@@ -55,7 +55,7 @@ const Upload = () => {
          userEmail: user?.primaryEmailAddress?.emailAddress,
          userName: user?.fullName,
          password: "",
-         shortUrl: process.env.NEXT_PUBLIC_BASE_URL + docId,
+         shortUrl: process.env.NEXT_PUBLIC_BASE_URL + "file/" + docId,
       });
       return docId;
    };
