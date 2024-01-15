@@ -35,7 +35,7 @@ const FilePreview = ({ params }: { params: { fileId: string } }) => {
    }, [db, params.fileId]);
 
    return (
-      <div className="mt-16 p-5 px-8 md:px-28">
+      <div className="mt-16 p-5 px-8 w-full md:max-w-[1100px] mx-auto">
          <Link
             href="/upload"
             className="inline-flex items-center gap-2 mb-8 text-lg font-medium"

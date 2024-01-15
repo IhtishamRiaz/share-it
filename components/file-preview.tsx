@@ -22,7 +22,7 @@ const FilePreview = ({
             <div className="flex flex-col justify-center">
                <h2 className="font-semibold">{file.name}</h2>
                <p className="text-sm text-gray-500">
-                  {file.type + " - " + (file.size / 1024 / 1024).toFixed(2)} MB
+                  {file.type + " - " + (file.size / 1024).toFixed(0)} KB
                </p>
             </div>
          </div>

@@ -22,25 +22,37 @@ const Upload = () => {
    const router = useRouter();
 
    const uploadFile = (file: File) => {
-      const metadata = {
-         contentType: file.type,
-      };
-      const fileRef = ref(storage, "uploaded-files/" + file.name);
-      const uploadTask = uploadBytesResumable(fileRef, file, metadata);
+      const encodedFileName = encodeURIComponent(file.name);
 
-      uploadTask.on("state_changed", (snapshot) => {
-         const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-         setProgress(progress);
+      const fileRef = ref(storage, "uploaded-files/" + encodedFileName);
+      const uploadTask = uploadBytesResumable(fileRef, file);
 
-         if (progress == 100) {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-               saveFileInfo(file, downloadURL).then((docId) => {
-                  router.push(`/file-preview/${docId}`);
+      uploadTask.on(
+         "state_changed",
+         (snapshot) => {
+            const progress =
+               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setProgress(progress);
+         },
+         (error) => {
+            console.error("Error Uploading file:", error);
+         },
+         () => {
+            getDownloadURL(uploadTask.snapshot.ref)
+               .then((downloadURL) => {
+                  saveFileInfo(file, downloadURL)
+                     .then((docId) => {
+                        router.push(`/file-preview/${docId}`);
+                     })
+                     .catch((error) => {
+                        console.error("Error saving file info:", error);
+                     });
+               })
+               .catch((error) => {
+                  console.error("Error getting download URL:", error);
                });
-            });
          }
-      });
+      );
    };
 
    const saveFileInfo = async (file: File, downloadURL: string) => {
