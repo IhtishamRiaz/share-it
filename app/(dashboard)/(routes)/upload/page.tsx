@@ -66,6 +66,7 @@ const Upload = () => {
          fileSize: file.size,
          fileType: file.type,
          fileUrl: downloadURL,
+         userId: user?.id,
          userEmail: user?.primaryEmailAddress?.emailAddress,
          userName: user?.fullName,
          password: "",
