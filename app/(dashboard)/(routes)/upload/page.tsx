@@ -13,6 +13,7 @@ import {
 } from "firebase/storage";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const Upload = () => {
    const [progress, setProgress] = useState(0);
@@ -38,6 +39,7 @@ const Upload = () => {
             console.error("Error Uploading file:", error);
          },
          () => {
+            toast.success("File Uploaded Successfully");
             getDownloadURL(uploadTask.snapshot.ref)
                .then((downloadURL) => {
                   saveFileInfo(file, downloadURL)

@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { toast } from "sonner";
 
 const Dropzone = ({
    setFile,
@@ -10,7 +11,11 @@ const Dropzone = ({
 }) => {
    const onDrop = useCallback(
       (acceptedFiles: File[]) => {
-         setFile(acceptedFiles[0]);
+         if (acceptedFiles[0].size < 2000000) {
+            setFile(acceptedFiles[0]);
+         } else {
+            toast.error("Maximum File Upload Size is 2MB");
+         }
       },
       [setFile]
    );

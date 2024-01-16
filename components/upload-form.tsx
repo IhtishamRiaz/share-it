@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import AlertMsg from "./alert-msg";
 import FilePreview from "./file-preview";
 import ProgressBar from "./progress-bar";
-import { useDropzone } from "react-dropzone";
 import Dropzone from "./dropzone";
 
 interface UploadFormProps {
@@ -12,21 +10,10 @@ interface UploadFormProps {
 
 const UploadForm = ({ progress, uploadFile }: UploadFormProps) => {
    const [file, setFile] = useState<File>();
-   const [errorMsg, setErrorMsg] = useState<string>();
 
-   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files && e.target.files[0].size < 2000000) {
-         setFile(e.target.files[0]);
-         setErrorMsg("");
-      } else {
-         setErrorMsg("Maximum File Upload Size is 2MB");
-      }
-   };
    return (
       <>
          <Dropzone setFile={setFile} />
-
-         {errorMsg && <AlertMsg msg={errorMsg} />}
 
          {file && (
             <FilePreview file={file} removeFile={() => setFile(undefined)} />

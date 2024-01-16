@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
          <html lang="en">
             <body className={cn("min-h-svh bg-slate-100", inter.className)}>
                {children}
+               <Toaster richColors={true} position="top-right" />
             </body>
          </html>
       </ClerkProvider>

@@ -3,9 +3,11 @@ import { type fileInfo } from "@/lib/types";
 import React, { useEffect, useState } from "react";
 import { LuCopy } from "react-icons/lu";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { FaCheck } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import sendEmail from "@/lib/emailApi";
+import { toast } from "sonner";
 
 type Props = {
    fileInfo: fileInfo;
@@ -15,22 +17,18 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
    const [password, setPassword] = useState("");
    const [showPassword, setShowPassword] = useState(false);
    const [isPasswordEnabled, setIsPasswordEnabled] = useState(false);
+   const [isCopied, setIsCopied] = useState(false);
    const [email, setEmail] = useState("");
-
    const { user } = useUser();
 
-   const copyLink = () => {
+   const handleCopyLink = () => {
+      setIsCopied(true);
+      toast.success("Copied Link");
       navigator.clipboard.writeText(fileInfo?.shortUrl);
 
-      const textToSelect = document.getElementById("short-url");
-      if (!textToSelect) return;
-
-      const range = document.createRange();
-      range.selectNode(textToSelect);
-
-      const selection = window.getSelection();
-      selection?.removeAllRanges();
-      selection?.addRange(range);
+      setTimeout(() => {
+         setIsCopied(false);
+      }, 2000);
    };
 
    useEffect(() => {
@@ -59,8 +57,12 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
                <p className="text-gray-500" id="short-url">
                   {fileInfo?.shortUrl}
                </p>
-               <button onClick={copyLink}>
-                  <LuCopy className="text-xl active:scale-[85%] transition-all" />
+               <button onClick={handleCopyLink}>
+                  {isCopied ? (
+                     <FaCheck className="text-lg text-green-600" />
+                  ) : (
+                     <LuCopy className="text-xl active:scale-[85%] transition-all" />
+                  )}
                </button>
             </div>
          </div>
