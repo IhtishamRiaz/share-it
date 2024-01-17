@@ -35,18 +35,18 @@ const FileView = ({ params }: { params: { id: string } }) => {
    }, [db, params.id]);
 
    return (
-      <div className="flex flex-col items-center justify-center gap-8 min-h-svh">
+      <div className="flex flex-col items-center px-4 justify-center gap-8 min-h-svh">
          <Link href={"/"}>
-            <Image src={"/logo.svg"} width={200} height={200} alt="logo" />
+            <Image src={"/logo.png"} width={200} height={200} alt="logo" />
          </Link>
 
          {fileInfo && (
-            <div className="flex flex-col items-center justify-center bg-white rounded-lg px-5 py-6 max-w-[450px] w-full">
-               <h1 className="text-2xl font-medium text-gray-600">
+            <div className="flex flex-col items-center justify-center bg-white rounded-lg px-4 py-6 max-w-[450px] w-full">
+               <h1 className="text-2xl font-medium text-gray-600 text-center">
                   <span className="text-primary font-semibold">
                      {fileInfo?.userName}
                   </span>
-                  {"  "}
+                  <br />
                   Shared this file with you
                </h1>
                <Image

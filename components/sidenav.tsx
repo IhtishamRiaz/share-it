@@ -34,7 +34,9 @@ const SideNav = () => {
    return (
       <nav className="hidden md:block min-h-svh md:w-64 flex-col inset-y-0 fixed z-50 border-r bg-white">
          <div className="flex items-center px-5 border-b h-[72px]">
-            <Image src={"/logo.svg"} width={150} height={100} alt="logo" />
+            <Link href={"/"}>
+               <Image src={"/logo.png"} width={150} height={100} alt="logo" />
+            </Link>
          </div>
          <div>
             {navItems.map((item) => (

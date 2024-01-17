@@ -53,11 +53,14 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
       <div className="border shadow-sm rounded-md basis-1/2 bg-white pt-3 pb-6 px-4">
          <div className="text-gray-400 space-y-1">
             <p>Short Url</p>
-            <div className="border rounded-md flex items-center justify-between h-10 px-2">
+            <div className="border rounded-md flex items-center justify-between h-10 px-2 overflow-hidden relative">
                <p className="text-gray-500" id="short-url">
                   {fileInfo?.shortUrl}
                </p>
-               <button onClick={handleCopyLink}>
+               <button
+                  onClick={handleCopyLink}
+                  className="absolute top-1/2 -translate-y-1/2 right-0 bg-white p-2"
+               >
                   {isCopied ? (
                      <FaCheck className="text-lg text-green-600" />
                   ) : (
@@ -75,7 +78,7 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
                />
                <span className="ml-2 font-medium">Enable Password?</span>
             </label>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2">
                <div className="relative w-full">
                   <input
                      type={showPassword ? "text" : "password"}
@@ -100,7 +103,7 @@ const FilePreviewForm = ({ fileInfo, addPassword }: Props) => {
                <button
                   disabled={!isPasswordEnabled}
                   onClick={() => addPassword(password)}
-                  className="text-white bg-primary rounded-md py-2 px-4 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all disabled:bg-slate-400 disabled:active:scale-100"
+                  className="text-white bg-primary w-full xs:w-auto rounded-md py-2 px-4 hover:bg-primary-muted active:bg-primary active:scale-95 transition-all disabled:bg-slate-400 disabled:active:scale-100"
                >
                   Save
                </button>

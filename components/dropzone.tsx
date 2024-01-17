@@ -36,7 +36,7 @@ const Dropzone = ({
       >
          <input {...getInputProps()} />
          {isDragActive ? (
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center">
                <svg
                   className="w-12 h-12 mb-4 text-primary"
                   aria-hidden="true"
@@ -61,7 +61,7 @@ const Dropzone = ({
                </p>
             </div>
          ) : (
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center">
                <svg
                   className="w-12 h-12 mb-4 text-primary"
                   aria-hidden="true"

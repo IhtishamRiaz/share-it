@@ -76,8 +76,8 @@ const Upload = () => {
    };
 
    return (
-      <div className="flex items-center justify-center flex-col p-5 px-8 md:px-28">
-         <h2 className="text-xl m-5">
+      <div className="flex items-center justify-center flex-col p-5 px-4 md:px-28">
+         <h2 className="text-xl m-5 text-center">
             Start <strong className="text-primary">Uploading</strong> Files and
             <strong className="text-primary"> Share</strong> it.
          </h2>
