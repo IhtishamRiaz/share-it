@@ -23,20 +23,20 @@ const Files = () => {
 
    useEffect(() => {
       const getAllFiles = async () => {
-         if (!user?.id) return;
+         if (typeof window !== "undefined" && user?.id) {
+            const db = getFirestore(app);
+            const filesRef = collection(db, "files");
+            const q = query(filesRef, where("userId", "==", user?.id));
+            const querySnapshot = await getDocs(q);
 
-         const db = getFirestore(app);
-         const filesRef = collection(db, "files");
-         const q = query(filesRef, where("userId", "==", user?.id));
-         const querySnapshot = await getDocs(q);
-
-         const filesArray = querySnapshot.docs.map((doc) => {
-            return {
-               id: doc.id,
-               ...doc.data(),
-            };
-         });
-         setFiles(filesArray);
+            const filesArray = querySnapshot.docs.map((doc) => {
+               return {
+                  id: doc.id,
+                  ...doc.data(),
+               };
+            });
+            setFiles(filesArray);
+         }
       };
       getAllFiles();
    }, [user?.id]);
