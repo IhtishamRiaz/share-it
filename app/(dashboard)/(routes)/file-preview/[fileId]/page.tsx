@@ -8,6 +8,7 @@ import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { IoCaretBackOutline } from "react-icons/io5";
+import { toast } from "sonner";
 
 const FilePreview = ({ params }: { params: { fileId: string } }) => {
    const db = getFirestore(app);
@@ -18,6 +19,7 @@ const FilePreview = ({ params }: { params: { fileId: string } }) => {
       await updateDoc(docRed, {
          password,
       });
+      toast.success("Password Updated Successfully!");
    };
 
    useEffect(() => {
